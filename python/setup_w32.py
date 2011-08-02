@@ -4,13 +4,22 @@
 # ======================================================#
 
 # Let's start with some default (for me) imports...
+import os
+import sys
+os.chdir(os.path.join(os.path.dirname(__file__), "src", "gui"))
+sys.path.insert(0, os.getcwd())
+
+
+print os.getcwd()
 
 from distutils.core import setup
 import py2exe
 import glob
-import os
+
 import zlib
 import shutil
+
+
 
 # Remove the build folder
 shutil.rmtree("build", ignore_errors=True)
@@ -90,7 +99,7 @@ includes = []
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter']
-packages = []
+packages = ["RowConfigure"]
 dll_excludes = ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll', 'tcl84.dll',
                 'tk84.dll',
                 'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll']
@@ -120,7 +129,7 @@ py26MSdll = glob.glob(os.path.join(os.path.dirname(__file__), '..', 'bundle', '*
 # install the MSVC 9 runtime dll's into the application folder
 data_files += [("", py26MSdll),]
 
-data_files += [("", walkTree(os.path.join(os.path.dirname(__file__), 'src')))]
+#data_files += [("", walkTree(os.path.join(os.path.dirname(__file__), 'src')))]
 
 # I found on some systems one has to put them into sub-folders.
 ##data_files += [("Microsoft.VC90.CRT", py26MSdll),
@@ -134,7 +143,7 @@ data_files += [("", walkTree(os.path.join(os.path.dirname(__file__), 'src')))]
 
 GUI2Exe_Target_1 = Target(
     # what to build
-    script = "src\\gui\\rowathon_client.py",
+    script = "rowathon_client.py",
     icon_resources = icon_resources,
     bitmap_resources = bitmap_resources,
     other_resources = other_resources,
@@ -170,7 +179,7 @@ setup(
                          }
               },
 
-    zipfile = "lib\library.zip",
+    zipfile = "lib\\library.zip",
     console = [],
     windows = [GUI2Exe_Target_1]
     )
