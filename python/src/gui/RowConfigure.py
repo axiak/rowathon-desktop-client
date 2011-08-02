@@ -3,6 +3,7 @@
 
 import wx
 import sys
+import os
 # begin wxGlade: dependencies
 # end wxGlade
 
@@ -13,9 +14,13 @@ import sys
 class RowConfigure(wx.Frame):
     def __init__(self, *args, **kwds):
         # begin wxGlade: RowConfigure.__init__
-        kwds["style"] = wx.CLOSE_BOX|wx.MINIMIZE_BOX
+        if os.name == 'nt':
+            kwds["style"] = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.SIMPLE_BORDER|wx.FRAME_TOOL_WINDOW|wx.FRAME_NO_TASKBAR
+        else:
+            kwds["style"] = wx.MINIMIZE_BOX | wx.CLOSE_BOX
+
         wx.Frame.__init__(self, *args, **kwds)
-        self.label_1 = wx.StaticText(self, -1, "Configure the CT Rowathon Client", style=wx.ALIGN_CENTRE)
+        self.notebook_1 = wx.Notebook(self, -1, style=0)
         
         # Menu Bar
         self.configuration_menubar = wx.MenuBar()
@@ -24,6 +29,19 @@ class RowConfigure(wx.Frame):
         self.configuration_menubar.Append(wxglade_tmp_menu, "File")
         self.SetMenuBar(self.configuration_menubar)
         # Menu Bar end
+        self.panel_1 = wx.Panel(self, -1)
+        self.label_1 = wx.StaticText(self, -1, "CrunchTime Rowathon Client")
+        self.panel_2 = wx.Panel(self, -1)
+        self.panel_3 = wx.Panel(self, -1)
+        self.panel_4 = wx.Panel(self, -1)
+        self.panel_5 = wx.Panel(self, -1)
+        self.notebook_1_pane_1 = wx.Panel(self.notebook_1, -1)
+        self.notebook_1_pane_2 = wx.Panel(self.notebook_1, -1)
+        self.notebook_1_pane_3 = wx.Panel(self.notebook_1, -1)
+        self.panel_9 = wx.Panel(self, -1)
+        self.panel_6 = wx.Panel(self, -1)
+        self.panel_7 = wx.Panel(self, -1)
+        self.panel_8 = wx.Panel(self, -1)
 
         self.__set_properties()
         self.__do_layout()
@@ -33,16 +51,55 @@ class RowConfigure(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: RowConfigure.__set_properties
-        self.SetTitle("Rowathon Configuration")
+        self.SetTitle("CrunchTime Rowathon Client")
         self.SetSize((639, 439))
-        self.label_1.SetMinSize((639, 29))
-        self.label_1.SetFont(wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.NORMAL, 0, ""))
+        self.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_1.SetMinSize((186,20))
+        self.panel_1.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.label_1.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.label_1.SetFont(wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.NORMAL, 0, ""))
+        self.panel_2.SetMinSize((20,20))
+        self.panel_2.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_3.SetMinSize((213, 20))
+        self.panel_3.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_4.SetMinSize((20,20))
+        self.panel_4.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_5.SetMinSize((20, 66))
+        self.panel_5.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.notebook_1_pane_1.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.notebook_1.SetMinSize((590, 300))
+        self.notebook_1.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_9.SetMinSize((20, 66))
+        self.panel_9.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_6.SetMinSize((20,20))
+        self.panel_6.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_7.SetMinSize((213, 20))
+        self.panel_7.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.panel_8.SetMinSize((20,20))
+        self.panel_8.SetBackgroundColour(wx.Colour(255, 255, 255))
         # end wxGlade
 
     def __do_layout(self):
         # begin wxGlade: RowConfigure.__do_layout
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
-        sizer_1.Add(self.label_1, 3, 0, 0)
+        grid_sizer_2 = wx.FlexGridSizer(3, 3, 0, 0)
+        grid_sizer_1 = wx.FlexGridSizer(1, 2, 0, 0)
+        grid_sizer_1.Add(self.panel_1, 1, wx.EXPAND, 0)
+        grid_sizer_1.Add(self.label_1, 0, 0, 0)
+        sizer_1.Add(grid_sizer_1, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_2, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_3, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_4, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_5, 1, wx.EXPAND, 0)
+        self.notebook_1.AddPage(self.notebook_1_pane_1, "Run")
+        self.notebook_1.AddPage(self.notebook_1_pane_2, "Configure")
+        self.notebook_1.AddPage(self.notebook_1_pane_3, "About")
+        grid_sizer_2.Add(self.notebook_1, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_9, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_6, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_7, 1, wx.EXPAND, 0)
+        grid_sizer_2.Add(self.panel_8, 1, wx.EXPAND, 0)
+        sizer_1.Add(grid_sizer_2, 0, wx.ALIGN_CENTER_VERTICAL, 0)
         self.SetSizer(sizer_1)
         self.Layout()
         # end wxGlade
