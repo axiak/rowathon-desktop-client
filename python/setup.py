@@ -21,9 +21,8 @@ shutil.rmtree("dist", ignore_errors=True)
 def walkTree(d):
     matches = []
     for root, dirnames, filenames in os.walk(d):
-        if filename.endswith('pyc') or filename.endswith('~'):
-            continue
-        matches.extend(os.path.join(root, filename) for filename in filenames)
+        matches.extend(os.path.join(root, filename) for filename in filenames
+                       if not (filename.endswith('pyc') or filename.endswith('~')))
     return matches
 
 MANIFEST_TEMPLATE = """
