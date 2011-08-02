@@ -18,6 +18,12 @@ shutil.rmtree("build", ignore_errors=True)
 # do the same for dist folder
 shutil.rmtree("dist", ignore_errors=True)
 
+def walkTree(d):
+    matches = []
+    for root, dirnames, filenames in os.walk(d):
+        matches.extend(filenames)
+    return matches
+
 MANIFEST_TEMPLATE = """
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
@@ -112,6 +118,8 @@ py26MSdll = glob.glob(os.path.join(os.path.dirname(__file__), '..', 'bundle', '*
 
 # install the MSVC 9 runtime dll's into the application folder
 data_files += [("", py26MSdll),]
+
+data_files += [("", walkTree(os.path.join(os.path.dirname(__file__), 'src')))]
 
 # I found on some systems one has to put them into sub-folders.
 ##data_files += [("Microsoft.VC90.CRT", py26MSdll),
